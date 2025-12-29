@@ -79,6 +79,17 @@ RUN curl -fsSL "https://github.com/animetosho/par2cmdline-turbo/archive/refs/tag
 COPY --from=fetch /app/sabnzbd/requirements.txt /tmp/requirements.txt
 RUN pip3 install --no-cache-dir --break-system-packages -r /tmp/requirements.txt
 
+# #region agent log - Debug: Check Python3 library dependencies
+RUN ldd /usr/bin/python3 > /tmp/python3_deps.txt 2>&1 || true && \
+    echo "=== Python3 library dependencies ===" && \
+    cat /tmp/python3_deps.txt && \
+    echo "=== Missing libraries check ===" && \
+    (ldd /usr/bin/python3 2>&1 | grep "not found" || echo "No missing libraries found") && \
+    echo "=== All Python3 dependencies ===" && \
+    ldd /usr/bin/python3 2>&1 | grep "=>" | awk '{print $3}' | sort -u > /tmp/python3_libs.txt && \
+    cat /tmp/python3_libs.txt
+# #endregion agent log
+
 # STAGE 3 — distroless final image
 # Build script will pass BASE_TAG (from VERSION.json base.tag) and BASE_DIGEST
 # Format: ghcr.io/runlix/distroless-runtime:release-2025.12.29.1-linux-amd64-latest@sha256:digest (when digest provided)
@@ -107,6 +118,22 @@ COPY --from=sabnzbd-deps /usr/local/lib/python3.11/dist-packages /usr/local/lib/
 
 # Copy Python standard library
 COPY --from=sabnzbd-deps /usr/lib/python3.11 /usr/lib/python3.11
+
+# #region agent log - Debug: Copy Python3 dependency libraries
+# Copy all Python3 runtime dependencies identified in debug stage
+COPY --from=sabnzbd-deps /tmp/python3_libs.txt /tmp/python3_libs.txt
+# Copy common Python runtime libraries (required by Python3)
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libexpat.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libbz2.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/liblzma.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libz.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libreadline.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libncurses.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libtinfo.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libsqlite3.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libgdbm.so.* /usr/lib/${LIB_DIR}/
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libgdbm_compat.so.* /usr/lib/${LIB_DIR}/
+# #endregion agent log
 
 WORKDIR /app/sabnzbd
 USER 65532:65532
