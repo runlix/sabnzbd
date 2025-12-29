@@ -1,0 +1,17 @@
+name: call-build
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  call:
+    uses: runlix/build-workflow/.github/workflows/build-on-call.yml@main
+    with:
+      image_name: sabnzbd-distroless
+      dockerfile_path: Dockerfile
+      build_context: .
+    secrets: inherit
+
