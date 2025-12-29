@@ -33,6 +33,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
  && mkdir -p /app/sabnzbd \
  && curl -L -f "${PACKAGE_URL}" -o sabnzbd.tar.gz \
  && tar -xzf sabnzbd.tar.gz -C /app/sabnzbd --strip-components=1 \
+ && chmod -R u=rwX,go=rX /app/sabnzbd \
  && rm sabnzbd.tar.gz
 
 # STAGE 2 — build par2turbo and install Python dependencies
