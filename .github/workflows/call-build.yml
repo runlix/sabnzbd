@@ -8,10 +8,9 @@ on:
 
 jobs:
   call:
+    permissions:
+      contents: write
+      packages: write
     uses: runlix/build-workflow/.github/workflows/build-on-call.yml@main
-    with:
-      image_name: sabnzbd-distroless
-      dockerfile_path: Dockerfile
-      build_context: .
     secrets: inherit
 
