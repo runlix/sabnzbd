@@ -13,4 +13,3 @@ jobs:
       packages: write
     uses: runlix/build-workflow/.github/workflows/build-on-call.yml@main
     secrets: inherit
-

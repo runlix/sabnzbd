@@ -63,7 +63,10 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     libssl-dev \
     cargo \
     rustc \
- && rm -rf /var/lib/apt/lists/*
+    unrar \
+    p7zip \
+    util-linux \
+&& rm -rf /var/lib/apt/lists/*
 
 # Build par2turbo
 WORKDIR /tmp
@@ -106,6 +109,12 @@ COPY --from=fetch /app/sabnzbd /app/sabnzbd
 # Copy par2 binaries
 COPY --from=sabnzbd-deps /usr/local/bin/par2* /usr/local/bin/
 
+# Copy extraction and priority utilities
+COPY --from=sabnzbd-deps /usr/bin/unrar /usr/bin/unrar
+COPY --from=sabnzbd-deps /usr/bin/7za /usr/bin/7za
+COPY --from=sabnzbd-deps /usr/bin/nice /usr/bin/nice
+COPY --from=sabnzbd-deps /usr/bin/ionice /usr/bin/ionice
+
 # Copy Python runtime
 COPY --from=sabnzbd-deps /usr/bin/python3 /usr/bin/python3
 COPY --from=sabnzbd-deps /usr/bin/python3.11 /usr/bin/python3.11
@@ -135,6 +144,12 @@ COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libsqlite3.so.* /usr/lib/${LIB_DIR}
 COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libgdbm.so.* /usr/lib/${LIB_DIR}/
 COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libgdbm_compat.so.* /usr/lib/${LIB_DIR}/
 # #endregion agent log
+
+# Copy shared libraries for extraction and priority utilities
+# C++ standard library (required by unrar and 7za)
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libstdc++.so.* /usr/lib/${LIB_DIR}/
+# GCC support library (required by C++ binaries)
+COPY --from=sabnzbd-deps /usr/lib/${LIB_DIR}/libgcc_s.so.* /usr/lib/${LIB_DIR}/
 
 WORKDIR /app/sabnzbd
 USER 65532:65532
