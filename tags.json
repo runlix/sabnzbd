@@ -2,23 +2,23 @@
   "release-debug": {
     "description": "release-debug",
     "hide": false,
-    "last_updated": "2025-12-30T12:55:12.000Z",
-    "last_updated_url": "https://github.com/runlix/sabnzbd/actions/runs/20596902471",
+    "last_updated": "2025-12-30T16:46:45.000Z",
+    "last_updated_url": "https://github.com/runlix/sabnzbd/actions/runs/20600939294",
     "tags": [
       "release-debug",
       "release-4.5.5-debug",
-      "release-8b6de67-debug"
+      "release-034478a-debug"
     ]
   },
   "release-latest": {
     "description": "release-latest",
     "hide": false,
-    "last_updated": "2025-12-30T12:55:12.000Z",
-    "last_updated_url": "https://github.com/runlix/sabnzbd/actions/runs/20596902471",
+    "last_updated": "2025-12-30T16:46:45.000Z",
+    "last_updated_url": "https://github.com/runlix/sabnzbd/actions/runs/20600939294",
     "tags": [
       "release-latest",
       "release-4.5.5-latest",
-      "release-8b6de67-latest"
+      "release-034478a-latest"
     ]
   },
   "update-digests-20597321606-1767100460-debug": {
