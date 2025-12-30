@@ -64,5 +64,27 @@
       "update-digests-20597321606-1767100469-4.5.5-latest",
       "update-digests-20597321606-1767100469-d462a06-latest"
     ]
+  },
+  "update-digests-20597731246-1767101744-debug": {
+    "description": "update-digests-20597731246-1767101744-debug",
+    "hide": false,
+    "last_updated": "2025-12-30T14:03:06.000Z",
+    "last_updated_url": "https://github.com/runlix/sabnzbd/actions/runs/20597754435",
+    "tags": [
+      "update-digests-20597731246-1767101744-debug",
+      "update-digests-20597731246-1767101744-4.5.5-debug",
+      "update-digests-20597731246-1767101744-54c51eb-debug"
+    ]
+  },
+  "update-digests-20597731246-1767101744-latest": {
+    "description": "update-digests-20597731246-1767101744-latest",
+    "hide": false,
+    "last_updated": "2025-12-30T14:03:06.000Z",
+    "last_updated_url": "https://github.com/runlix/sabnzbd/actions/runs/20597754435",
+    "tags": [
+      "update-digests-20597731246-1767101744-latest",
+      "update-digests-20597731246-1767101744-4.5.5-latest",
+      "update-digests-20597731246-1767101744-54c51eb-latest"
+    ]
   }
 }
