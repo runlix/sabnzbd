@@ -11,6 +11,8 @@ ARG BASE_DIGEST=""
 ARG PACKAGE_URL=""
 # par2turbo version (can be added to VERSION.json later if needed)
 ARG PAR2TURBO_VERSION=1.3.0
+# unrar version - source available at https://www.rarlab.com/rar_add.htm
+ARG UNRAR_VERSION=7.2.3
 
 # STAGE 1 — fetch SABnzbd source
 # Build script will pass BUILDER_TAG and BUILDER_DIGEST from VERSION.json
@@ -36,18 +38,16 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
  && chmod -R u=rwX,go=rX /app/sabnzbd \
  && rm sabnzbd.tar.gz
 
-# STAGE 2 — build par2turbo and install Python dependencies
+# STAGE 2 — build par2turbo, unrar and install Python dependencies
 # Build script will pass BUILDER_TAG and BUILDER_DIGEST from VERSION.json
 FROM docker.io/library/debian:${BUILDER_TAG}@${BUILDER_DIGEST} AS sabnzbd-deps
 
 ARG PAR2TURBO_VERSION
+ARG UNRAR_VERSION
 
 # Use BuildKit cache mounts to persist apt cache between builds
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
-    (sed -i 's/Components: main/Components: main non-free/g' /etc/apt/sources.list.d/debian.sources 2>/dev/null || \
-     sed -i 's/deb http:\/\/deb.debian.org\/debian \(.*\) main/deb http:\/\/deb.debian.org\/debian \1 main non-free/g' /etc/apt/sources.list 2>/dev/null || \
-     echo "deb http://deb.debian.org/debian bookworm main non-free" >> /etc/apt/sources.list) && \
     apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-minimal \
@@ -66,7 +66,6 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     libssl-dev \
     cargo \
     rustc \
-    unrar \
     p7zip \
     util-linux \
 && rm -rf /var/lib/apt/lists/*
@@ -80,6 +79,18 @@ RUN curl -fsSL "https://github.com/animetosho/par2cmdline-turbo/archive/refs/tag
  && ./configure \
  && make \
  && make install
+
+# Build unrar from source
+# Source available at https://www.rarlab.com/rar_add.htm
+WORKDIR /tmp
+RUN curl -fsSL "https://www.rarlab.com/rar/unrarsrc-${UNRAR_VERSION}.tar.gz" -o unrar.tar.gz \
+ && tar -xzf unrar.tar.gz \
+ && cd unrar \
+ && make -f makefile \
+ && cp unrar /usr/local/bin/unrar \
+ && chmod +x /usr/local/bin/unrar \
+ && cd /tmp \
+ && rm -rf unrar unrar.tar.gz
 
 # Install Python packages from SABnzbd requirements.txt
 # Copy requirements.txt from fetch stage
@@ -113,7 +124,7 @@ COPY --from=fetch /app/sabnzbd /app/sabnzbd
 COPY --from=sabnzbd-deps /usr/local/bin/par2* /usr/local/bin/
 
 # Copy extraction and priority utilities
-COPY --from=sabnzbd-deps /usr/bin/unrar /usr/bin/unrar
+COPY --from=sabnzbd-deps /usr/local/bin/unrar /usr/local/bin/unrar
 COPY --from=sabnzbd-deps /usr/bin/7za /usr/bin/7za
 COPY --from=sabnzbd-deps /usr/bin/nice /usr/bin/nice
 COPY --from=sabnzbd-deps /usr/bin/ionice /usr/bin/ionice
