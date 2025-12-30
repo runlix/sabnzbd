@@ -45,6 +45,9 @@ ARG PAR2TURBO_VERSION
 # Use BuildKit cache mounts to persist apt cache between builds
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    (sed -i 's/Components: main/Components: main non-free/g' /etc/apt/sources.list.d/debian.sources 2>/dev/null || \
+     sed -i 's/deb http:\/\/deb.debian.org\/debian \(.*\) main/deb http:\/\/deb.debian.org\/debian \1 main non-free/g' /etc/apt/sources.list 2>/dev/null || \
+     echo "deb http://deb.debian.org/debian bookworm main non-free" >> /etc/apt/sources.list) && \
     apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-minimal \
