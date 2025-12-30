@@ -66,7 +66,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     libssl-dev \
     cargo \
     rustc \
-    p7zip \
+    p7zip-full \
     util-linux \
 && rm -rf /var/lib/apt/lists/*
 
