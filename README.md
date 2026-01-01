@@ -1,6 +1,10 @@
-# SABnzbd Distroless
+# SABnzbd
 
-Kubernetes-native distroless Docker image for [SABnzbd](https://github.com/sabnzbd/sabnzbd).
+Kubernetes-native distroless Docker image for [SABnzbd](https://github.com/sabnzbd/sabnzbd) - a Usenet downloader.
+
+## Purpose
+
+Provides a minimal, secure Docker image for running SABnzbd in Kubernetes environments. Built on the `distroless-runtime` base image with only the essential dependencies required for SABnzbd to function.
 
 ## Features
 
@@ -19,7 +23,7 @@ docker run -d \
   --name sabnzbd \
   -p 8080:8080 \
   -v /path/to/config:/config \
-  ghcr.io/runlix/sabnzbd-distroless:release
+  ghcr.io/runlix/sabnzbd:release-latest
 ```
 
 ### Kubernetes
@@ -34,7 +38,7 @@ spec:
     spec:
       containers:
       - name: sabnzbd
-        image: ghcr.io/runlix/sabnzbd-distroless:release
+        image: ghcr.io/runlix/sabnzbd:release-latest
         ports:
         - containerPort: 8080
         volumeMounts:
