@@ -17,7 +17,7 @@
         "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "stable",
-        "BASE_DIGEST": "sha256:3b1c6c4f5d904070a72ebfc409cd296ffad717b2202233aef3a1702568c6e684",
+        "BASE_DIGEST": "sha256:d0b92305a0095e40a6d8f346ab37f4289d2236dd4334cd13a099243408899a1b",
         "PACKAGE_URL": "https://github.com/sabnzbd/sabnzbd/releases/download/4.5.5/SABnzbd-4.5.5-src.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
@@ -38,7 +38,7 @@
         "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "stable",
-        "BASE_DIGEST": "sha256:69c8ef8fb791b563fe612e8ab23efa97f224635d057b18203c2befba280628f4",
+        "BASE_DIGEST": "sha256:679f4bfb7d05609c3aeff212e2c013de415eeb4dcbf437617a43fc2441667be1",
         "PACKAGE_URL": "https://github.com/sabnzbd/sabnzbd/releases/download/4.5.5/SABnzbd-4.5.5-src.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
@@ -59,7 +59,7 @@
         "BUILDER_DIGEST": "sha256:09c53e50b5110eb26e0932ab77934481ce9c0068069d4f28e3e7493e51323bfe",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "debug",
-        "BASE_DIGEST": "sha256:cd246ef1b6e8ef3ddb3b471cb6af13132e2af38f69fc18c77fff8a97bf351a97",
+        "BASE_DIGEST": "sha256:6eb28943a0966722aaee2dc4e6b7eaa6d2b1002650d9088a1045ea18022be8fd",
         "PACKAGE_URL": "https://github.com/sabnzbd/sabnzbd/releases/download/4.5.5/SABnzbd-4.5.5-src.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
@@ -80,7 +80,7 @@
         "BUILDER_DIGEST": "sha256:79abd3da4379967c72ac0c0e2dc9ac2204143b92224fada931ef855b8559df87",
         "BASE_IMAGE": "ghcr.io/runlix/distroless-runtime",
         "BASE_TAG": "debug",
-        "BASE_DIGEST": "sha256:8e90e3a86b12cb96706cff3ee6fcfd44e5a5f5d58993cb895a69de6ecd309cdb",
+        "BASE_DIGEST": "sha256:a97b57fbea3cdb2c175c292ca9da431c6d34858af99acb476b04f223ebd0e6cc",
         "PACKAGE_URL": "https://github.com/sabnzbd/sabnzbd/releases/download/4.5.5/SABnzbd-4.5.5-src.tar.gz"
       },
       "test_script": ".ci/smoke-test.sh"
