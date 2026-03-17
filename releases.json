@@ -1,9 +1,9 @@
 {
   "sabnzbd": {
     "version": "4.5.5",
-    "sha": "b961b43227812d91e2f62f68f520f4f73d3bbe0c",
-    "short_sha": "b961b43",
-    "timestamp": "2026-02-26T00:53:48Z",
+    "sha": "af8d117dfd910b097045d6fd3fb95c89eda5024c",
+    "short_sha": "af8d117",
+    "timestamp": "2026-03-17T01:25:18Z",
     "manifests": [
       "4.5.5-debug",
       "4.5.5-stable"
