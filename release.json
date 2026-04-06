@@ -1,0 +1,25 @@
+{
+  "image": "ghcr.io/runlix/sabnzbd",
+  "version": "4.5.5",
+  "sha": "dabd36cb31b8e316faf07a6e119d107cd6d17bdb",
+  "short_sha": "dabd36c",
+  "published_at": "2026-03-26T01:38:42Z",
+  "manifests": [
+    {
+      "tag": "4.5.5-debug",
+      "digest": "sha256:c2a11afdb261d3da5a8672c3e374c6eb892d96e5b3748c7e05653a5100aeca64",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    },
+    {
+      "tag": "4.5.5-stable",
+      "digest": "sha256:59351fb080a325593eec277eb0029c03223a503dded91000069acc972ef47306",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    }
+  ]
+}

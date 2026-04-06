@@ -1,18 +1,25 @@
 # SABnzbd
 
-Kubernetes-native distroless Docker image for [SABnzbd](https://github.com/sabnzbd/sabnzbd) - a Usenet downloader.
+Kubernetes-native distroless Docker image for [SABnzbd](https://github.com/sabnzbd/sabnzbd), built and published through the shared CI v3 workflow stack in [`runlix/build-workflow`](https://github.com/runlix/build-workflow).
 
-## Purpose
+## Published Image
 
-Provides a minimal, secure Docker image for running SABnzbd in Kubernetes environments. Built on the `distroless-runtime` base image with only the essential dependencies required for SABnzbd to function.
+- Image: `ghcr.io/runlix/sabnzbd`
+- Current stable tag example: `ghcr.io/runlix/sabnzbd:4.5.5-stable`
+- Current debug tag example: `ghcr.io/runlix/sabnzbd:4.5.5-debug`
 
-## Features
+The authoritative published tags, digests, and source revision are recorded in [release.json](release.json).
 
-- Distroless base (no shell, minimal attack surface)
-- Kubernetes-native permissions (no s6-overlay)
-- Read-only root filesystem
-- Non-root execution
-- Minimal image size (~100MB vs ~500MB)
+## Branch Layout
+
+- `main`: documentation, release metadata, and automation configuration
+- `release`: Dockerfiles, CI wrappers, smoke tests, and build inputs
+
+Normal release flow:
+1. changes land on `release`
+2. `Publish Release` builds and publishes the images
+3. the workflow opens a sync PR back to `main`
+4. `main` records the published result in `release.json`
 
 ## Usage
 
@@ -23,7 +30,7 @@ docker run -d \
   --name sabnzbd \
   -p 8080:8080 \
   -v /path/to/config:/config \
-  ghcr.io/runlix/sabnzbd:release-latest
+  ghcr.io/runlix/sabnzbd:4.5.5-stable
 ```
 
 ### Kubernetes
@@ -37,34 +44,30 @@ spec:
   template:
     spec:
       containers:
-      - name: sabnzbd
-        image: ghcr.io/runlix/sabnzbd:release-latest
-        ports:
-        - containerPort: 8080
-        volumeMounts:
-        - name: config
-          mountPath: /config
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          readOnlyRootFilesystem: true
-          capabilities:
-            drop: ["ALL"]
+        - name: sabnzbd
+          image: ghcr.io/runlix/sabnzbd:4.5.5-stable
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /config
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: sabnzbd-config
+        - name: config
+          persistentVolumeClaim:
+            claimName: sabnzbd-config
       securityContext:
         fsGroup: 1000
 ```
 
-## Tags
-
-See [tags.json](tags.json) for available tags.
-
 ## Environment Variables
 
-- `SABNZBD__SERVER__PORT`: Server port (default: 8080)
+- `SABNZBD__SERVER__PORT`: server port override, defaults to `8080`
 
 ## License
 
