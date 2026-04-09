@@ -5,8 +5,8 @@ Kubernetes-native distroless Docker image for [SABnzbd](https://github.com/sabnz
 ## Published Image
 
 - Image: `ghcr.io/runlix/sabnzbd`
-- Current stable tag example: `ghcr.io/runlix/sabnzbd:4.5.5-stable`
-- Current debug tag example: `ghcr.io/runlix/sabnzbd:4.5.5-debug`
+- Stable tag pattern: `ghcr.io/runlix/sabnzbd:<version>-stable`
+- Debug tag pattern: `ghcr.io/runlix/sabnzbd:<version>-debug`
 
 The authoritative published tags, digests, and source revision are recorded in [release.json](release.json).
 
@@ -30,7 +30,7 @@ docker run -d \
   --name sabnzbd \
   -p 8080:8080 \
   -v /path/to/config:/config \
-  ghcr.io/runlix/sabnzbd:4.5.5-stable
+  ghcr.io/runlix/sabnzbd:<version>-stable
 ```
 
 ### Kubernetes
@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
         - name: sabnzbd
-          image: ghcr.io/runlix/sabnzbd:4.5.5-stable
+          image: ghcr.io/runlix/sabnzbd:<version>-stable
           ports:
             - containerPort: 8080
           volumeMounts:
