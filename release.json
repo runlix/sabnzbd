@@ -1,13 +1,13 @@
 {
   "image": "ghcr.io/runlix/sabnzbd",
   "version": "5.0.4",
-  "sha": "a0b1bd2081ff6a08d70c5794485a364085c49a8c",
-  "short_sha": "a0b1bd2",
-  "published_at": "2026-06-24T10:41:15Z",
+  "sha": "6aa4868cc281be501445362083d80011bdb4011e",
+  "short_sha": "6aa4868",
+  "published_at": "2026-07-09T02:20:53Z",
   "manifests": [
     {
       "tag": "4.5.5-debug",
-      "digest": "sha256:0bbfcd36592d2cd4352daeb85218d68c8603ddc81ae72cefe7d64f79f99dc841",
+      "digest": "sha256:5fda8166eb9fcd4c3e227b41e0df8d0acb5c14e58db3607438fca59ec279d9a5",
       "platforms": [
         "linux/amd64",
         "linux/arm64"
@@ -15,7 +15,7 @@
     },
     {
       "tag": "4.5.5-stable",
-      "digest": "sha256:9946da4444a13a8c546911542db0fd9f9b51957d1a7770a963582985772607b4",
+      "digest": "sha256:af4480832aaa8316f9cbba49e90b456ddc67a2193fd6c67a5661116c78426436",
       "platforms": [
         "linux/amd64",
         "linux/arm64"
